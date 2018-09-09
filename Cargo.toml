@@ -2,6 +2,8 @@
 name = "cargo-cmd"
 version = "0.1.0"
 authors = ["Dan Reeves <hey@danreev.es>"]
+repository = "https://github.com/danreeves/cargo-cmd"
+license = "MIT"
 
 [dependencies]
 toml = "0.4.6"
@@ -10,5 +12,5 @@ serde = "1.0.78"
 subprocess = "0.1.13"
 
 [package.metadata.commands]
-echo = "echo Hello planet!"
-dev = "cargo watch -s 'clear; cargo build && cargo cmd echo'"
+greet = "echo 'Hello, planet!'"
+dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
