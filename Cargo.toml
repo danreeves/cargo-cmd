@@ -1,5 +1,6 @@
 [package]
 name = "cargo-cmd"
+description = "Like npm scripts, but for cargo"
 version = "0.1.0"
 authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
