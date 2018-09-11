@@ -19,6 +19,8 @@ enum Cli {
     Cmd {
         #[structopt(name = "command", index = 1)]
         command: String,
+        #[structopt(multiple = true)]
+        rest: Vec<String>,
     },
 }
 
@@ -40,7 +42,7 @@ struct Metadata {
 fn main() {
     let cli = Cli::from_args();
     let command = match cli {
-        Cli::Cmd { command } => command,
+        Cli::Cmd { command, rest: _ } => command,
     };
     let cmds = exit_if_error(get_cmds(&command));
     let shell_command = cmds.get(&command);
