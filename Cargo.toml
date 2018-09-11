@@ -10,6 +10,7 @@ license = "MIT"
 greet = "echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
 export = "export PATH=\"$PATH:$(pwd)/target/debug\""
+echo = "echo"
 
 [dependencies]
 toml = "0.4.6"

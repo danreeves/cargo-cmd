@@ -41,15 +41,22 @@ struct Metadata {
 
 fn main() {
     let cli = Cli::from_args();
-    let command = match cli {
-        Cli::Cmd { command, rest: _ } => command,
+    let (command, mut rest) = match cli {
+        Cli::Cmd { command, rest } => (command, rest),
     };
     let cmds = exit_if_error(get_cmds(&command));
     let shell_command = cmds.get(&command);
 
     if let Some(command) = shell_command {
         println!("> {}", command);
-        let exit = Exec::shell(command).join().unwrap();
+        println!(
+            "{:?}",
+            Exec::shell(command).args(rest.iter_mut().into_slice())
+        );
+        let exit = Exec::shell(command)
+            .args(rest.iter_mut().into_slice())
+            .join()
+            .unwrap();
 
         if exit.success() {
             process::exit(0);
