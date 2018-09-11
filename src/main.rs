@@ -1,14 +1,26 @@
 #[macro_use]
 extern crate serde_derive;
+extern crate clap;
+extern crate structopt;
 extern crate subprocess;
 extern crate toml;
 
 use std::collections::HashMap;
-use std::env;
 use std::fs::File;
 use std::io::Read;
 use std::process;
+use structopt::StructOpt;
 use subprocess::{Exec, ExitStatus};
+
+#[derive(StructOpt, Debug)]
+#[structopt(name = "cargo-cmd", bin_name = "cargo")]
+enum Cli {
+    #[structopt(name = "cmd")]
+    Cmd {
+        #[structopt(name = "command", index = 1)]
+        command: String,
+    },
+}
 
 #[derive(Deserialize, Debug)]
 struct Cargotoml {
@@ -26,12 +38,14 @@ struct Metadata {
 }
 
 fn main() {
-    let cmds = exit_if_error(get_cmds());
-    let cmd = exit_if_error(get_cmd(env::args()));
+    let cli = Cli::from_args();
+    let command = match cli {
+        Cli::Cmd { command } => command,
+    };
+    let cmds = exit_if_error(get_cmds(&command));
+    let shell_command = cmds.get(&command);
 
-    let command_to_run = cmds.get(&cmd.0);
-
-    if let Some(command) = command_to_run {
+    if let Some(command) = shell_command {
         println!("> {}", command);
         let exit = Exec::shell(command).join().unwrap();
 
@@ -44,7 +58,7 @@ fn main() {
             }
         }
     } else {
-        println!("Command \"{}\" not found in Cargo.toml", &cmd.0);
+        println!("Command \"{}\" not found in Cargo.toml", &command);
         process::exit(1);
     }
 }
@@ -52,14 +66,13 @@ fn main() {
 fn exit_if_error<T>(result: Result<T, String>) -> T {
     match result {
         Err(error_msg) => {
-            println!("{}", error_msg);
-            process::exit(1);
+            clap::Error::with_description(&error_msg[..], clap::ErrorKind::HelpDisplayed).exit();
         }
         Ok(thing) => thing,
     }
 }
 
-fn get_cmds() -> Result<HashMap<String, String>, String> {
+fn get_cmds(command: &str) -> Result<HashMap<String, String>, String> {
     let mut cargo_toml = File::open("Cargo.toml").or(Err(
         "Could not find or open Cargo.toml in the current directory",
     ))?;
@@ -74,20 +87,12 @@ fn get_cmds() -> Result<HashMap<String, String>, String> {
 
     let commands = cargo_toml.package.metadata.commands;
 
+    {
+        let command_to_run = &commands.get(command);
+        if command_to_run.is_none() {
+            return Err(format!("Command \"{}\" not found in Cargo.toml", &command));
+        }
+    }
+
     Ok(commands)
-}
-
-fn get_cmd(mut args: env::Args) -> Result<(String, Option<Vec<String>>), String> {
-    // Pop off the binary
-    args.next();
-    // Prop off the "cmd"
-    args.next();
-
-    let command = match args.next() {
-        Some(string) => string,
-        None => return Err("You must provide a command: cargo cmd [command]".to_string()),
-    };
-
-    // This is eventually let you pass in arguments to the command
-    Ok((command, None))
 }
