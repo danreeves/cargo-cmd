@@ -2,9 +2,8 @@
 
 [![crates.io version][1]][2]
 [![build status][3]][4]
-[![downloads][5]][6]
-[![docs.rs docs][7]][8]
-[![license][9]][10]
+[![docs.rs docs][5]][6]
+[![license][7]][8]
 
 Like `npm` scripts, but for `cargo`.
 
@@ -40,10 +39,8 @@ Hello, planet!
 [2]: https://crates.io/crates/cargo-cmd
 [3]: https://img.shields.io/travis/danreeves/cargo-cmd.svg?style=flat-square
 [4]: https://travis-ci.org/danreeves/cargo-cmd
-[5]: https://img.shields.io/crates/d/cargo-cmd.svg?style=flat-square
-[6]: https://crates.io/crates/cargo-cmd
-[7]: https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square
-[8]: https://docs.rs/cargo-cmd
-[9]: https://img.shields.io/crates/l/cargo-cmd.svg?style=flat-square
-[10]: ./LICENSE
+[5]: https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square
+[6]: https://docs.rs/cargo-cmd
+[7]: https://img.shields.io/crates/l/cargo-cmd.svg?style=flat-square
+[8]: ./LICENSE
 
