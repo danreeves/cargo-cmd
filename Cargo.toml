@@ -5,6 +5,8 @@ version = "0.1.0"
 authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
 license = "MIT"
+readme = "README.md"
+categories = ["cargo", "command-line-utilities"]
 
 [dependencies]
 toml = "0.4.6"
@@ -15,3 +17,6 @@ subprocess = "0.1.13"
 [package.metadata.commands]
 greet = "echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
+
+[badges]
+travis-ci = { repository = "danreeves/cargo-cmd", branch = "master" }
