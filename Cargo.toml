@@ -5,8 +5,10 @@ version = "0.1.0"
 authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
 license = "MIT"
+license-file = "LICENSE"
 readme = "README.md"
 categories = ["development-tools::cargo-plugins"]
+keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 
 [dependencies]
 toml = "0.4.6"
