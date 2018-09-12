@@ -4,7 +4,7 @@
 [![build status][3]][4]
 [![downloads][5]][6]
 [![docs.rs docs][7]][8]
-[![license](9)][10]
+[![license][9]][10]
 
 Like `npm` scripts, but for `cargo`.
 
