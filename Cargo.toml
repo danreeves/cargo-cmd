@@ -6,7 +6,7 @@ authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
 license = "MIT"
 readme = "README.md"
-categories = ["cargo", "command-line-utilities"]
+categories = ["development-tools::cargo-plugins"]
 
 [dependencies]
 toml = "0.4.6"
