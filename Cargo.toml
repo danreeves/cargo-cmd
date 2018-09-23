@@ -15,6 +15,7 @@ toml = "0.4.6"
 serde_derive = "1.0.78"
 serde = "1.0.78"
 subprocess = "0.1.13"
+winapi = "0.3.6"
 
 [package.metadata.commands]
 greet = "echo 'Hello, planet!'"
