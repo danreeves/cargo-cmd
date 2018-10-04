@@ -9,18 +9,17 @@ readme = "README.md"
 categories = ["development-tools::cargo-plugins"]
 keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 
-[dependencies]
-toml = "0.4.6"
-serde_derive = "1.0.78"
-serde = "1.0.78"
-subprocess = "0.1.13"
-structopt = "0.2.10"
-clap = "2.32.0"
-winapi = "0.3.6"
-
 [package.metadata.commands]
 greet = "echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
+
+[dependencies]
+toml = "0.4.8"
+serde_derive = "1.0.79"
+serde = "1.0.79"
+subprocess = "0.1.16"
+structopt = "0.2.10"
+clap = "2.32.0"
 
 [badges]
 travis-ci = { repository = "danreeves/cargo-cmd", branch = "master" }
