@@ -41,22 +41,20 @@ struct Metadata {
 
 fn main() {
     let cli = Cli::from_args();
-    let (command, mut rest) = match cli {
+    let (command, rest) = match cli {
         Cli::Cmd { command, rest } => (command, rest),
     };
     let cmds = exit_if_error(get_cmds(&command));
     let shell_command = cmds.get(&command);
 
     if let Some(command) = shell_command {
+        // This is naughty but Exec::shell doesn't let us do it with .args because
+        // it ends up as an argument to sh/cmd.exe instead of our user command
+        // or escaping things weirdly.
+        let command = format!("{} {}", command, rest.join(" "));
         println!("> {}", command);
-        println!(
-            "{:?}",
-            Exec::shell(command).args(rest.iter_mut().into_slice())
-        );
-        let exit = Exec::shell(command)
-            .args(rest.iter_mut().into_slice())
-            .join()
-            .unwrap();
+        let sh = Exec::shell(command);
+        let exit = sh.join().unwrap();
 
         if exit.success() {
             process::exit(0);

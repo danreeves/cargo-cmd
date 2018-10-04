@@ -7,10 +7,10 @@ repository = "https://github.com/danreeves/cargo-cmd"
 license = "MIT"
 
 [package.metadata.commands]
-greet = "echo 'Hello, planet!'"
-dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
-export = "export PATH=\"$PATH:$(pwd)/target/debug\""
 echo = "echo"
+greet = "cargo cmd echo 'Hello, planet!'"
+dev = "cargo watch -s 'clear; cargo build && cargo cmd echo -- 'hello''"
+ping = "ping"
 
 [dependencies]
 toml = "0.4.6"
