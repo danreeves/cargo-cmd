@@ -11,7 +11,7 @@ main() {
   fi
 
   cargo fmt -- --check
-  cargo clippy
+  cargo +nightly clippy
 
   cross test --target $TARGET
   cross test --target $TARGET --release
