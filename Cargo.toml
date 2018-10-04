@@ -10,7 +10,8 @@ categories = ["development-tools::cargo-plugins"]
 keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 
 [package.metadata.commands]
-greet = "echo 'Hello, planet!'"
+echo = "echo"
+greet = "cargo cmd echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
 
 [dependencies]
