@@ -13,6 +13,8 @@ keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 echo = "echo"
 greet = "cargo cmd echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
+pass = "exit 0"
+fail = "exit 42"
 
 [dependencies]
 toml = "0.4.8"
@@ -21,6 +23,7 @@ serde = "1.0.79"
 subprocess = "0.1.16"
 structopt = "0.2.10"
 clap = "2.32.0"
+assert_cli = "0.6.3"
 
 [badges]
 travis-ci = { repository = "danreeves/cargo-cmd", branch = "master" }

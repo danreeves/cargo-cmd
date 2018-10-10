@@ -65,7 +65,7 @@ fn main() {
             }
         }
     } else {
-        println!("Command \"{}\" not found in Cargo.toml", &command);
+        eprintln!("Command \"{}\" not found in Cargo.toml", &command);
         process::exit(1);
     }
 }
@@ -73,7 +73,7 @@ fn main() {
 fn exit_if_error<T>(result: Result<T, String>) -> T {
     match result {
         Err(error_msg) => {
-            clap::Error::with_description(&error_msg[..], clap::ErrorKind::HelpDisplayed).exit();
+            clap::Error::with_description(&error_msg[..], clap::ErrorKind::InvalidValue).exit();
         }
         Ok(thing) => thing,
     }
