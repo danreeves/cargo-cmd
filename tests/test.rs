@@ -42,3 +42,16 @@ fn it_returns_the_exit_code_of_the_command_when_it_fails() {
         .contains("> exit 42")
         .unwrap();
 }
+
+#[test]
+fn it_passes_extra_arguments_to_the_command() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "echo", "hello planet"])
+        .succeeds()
+        .and()
+        .stdout()
+        // This is both the printout of the command being executed
+        // and the output itself
+        .contains("> echo hello planet\nhello planet")
+        .unwrap();
+}
