@@ -19,6 +19,9 @@ matrix:
       os: osx
     - env: TARGET=x86_64-unknown-freebsd DISABLE_TESTS=1
       rust: nightly
+    - os: windows
+      env: TARGET=x86_64-pc-windows-msvc
+      rust: nightly
 
 before_install:
   - set -e
