@@ -21,9 +21,12 @@ toml = "0.4.8"
 serde_derive = "1.0.79"
 serde = "1.0.79"
 subprocess = "0.1.16"
-structopt = "0.2.10"
+structopt = "0.2.12"
 clap = "2.32.0"
 assert_cli = "0.6.3"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.6", features = ["handleapi", "namedpipeapi", "processenv", "synchapi", "winerror"] }
 
 [badges]
 travis-ci = { repository = "danreeves/cargo-cmd", branch = "master" }
