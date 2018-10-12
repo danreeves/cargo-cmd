@@ -22,13 +22,14 @@ main() {
 
   test -f Cargo.lock || cargo generate-lockfile
 
+  local cargo=
   if [ $TRAVIS_OS_NAME = linux ]; then
     cargo='cross'
   else
     cargo='cargo'
   fi
 
-  cross rustc --bin $PKG_NAME --target $TARGET --release -- -C lto
+  $cargo rustc --bin $PKG_NAME --target $TARGET --release -- -C lto
   cp target/$TARGET/release/$PKG_NAME $stage/
 
   cd $stage
