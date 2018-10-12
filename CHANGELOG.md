@@ -39,3 +39,24 @@
  src/main.rs  |  66 +++++++++++--------
  5 files changed, 264 insertions(+), 74 deletions(-)
 ```
+## 2018-10-12, Version 0.2.1
+### Commits
+- [[`af985e4098`](https://github.com/danreeves/cargo-cmd/commit/af985e40982d5176406b7f1cb4618119c40b3ff9)] 0.2.1 (Dan Reeves)
+- [[`ba0b6f7a1c`](https://github.com/danreeves/cargo-cmd/commit/ba0b6f7a1ce7ea54302bd133ca598c4ede2088aa)] CI in Windows (#8) (Dan Reeves)
+- [[`b7b4db96a5`](https://github.com/danreeves/cargo-cmd/commit/b7b4db96a535c8314fba418a7d57f37828aed154)] disable tests on linux because assert_cli uses backtrace and backtrace needs extra deps (Dan Reeves)
+- [[`7dce324ddd`](https://github.com/danreeves/cargo-cmd/commit/7dce324ddd32a85681d89871046f22bc7a4e5cea)] another test (Dan Reeves)
+- [[`51942aad9b`](https://github.com/danreeves/cargo-cmd/commit/51942aad9becda01c78de05cc157757103cd4622)] tests and fix an issue (Dan Reeves)
+- [[`6e80fe42b9`](https://github.com/danreeves/cargo-cmd/commit/6e80fe42b9bd8c37ecdebbb5013cf389a93604b7)] update changelog (Dan Reeves)
+
+### Stats
+```diff
+ .travis.yml        |   7 ++-
+ CHANGELOG.md       |  19 +++++++-
+ Cargo.lock         | 151 +++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ Cargo.toml         |  10 +++-
+ scripts/install.sh |  19 ++-----
+ scripts/script.sh  |  20 ++++---
+ src/main.rs        |   4 +-
+ tests/test.rs      |  57 ++++++++++++++++++++-
+ 8 files changed, 262 insertions(+), 25 deletions(-)
+```
