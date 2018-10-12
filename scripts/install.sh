@@ -32,7 +32,6 @@ main() {
 
   if [ $TRAVIS_OS_NAME = linux ]; then
     cargo install cross --force
-    alias cargo=cross
   fi
 
   # Install test dependencies

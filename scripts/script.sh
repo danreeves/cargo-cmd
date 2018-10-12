@@ -17,6 +17,14 @@ main() {
   cargo test --target $TARGET --release
 }
 
+if [ $TRAVIS_OS_NAME = linux ]; then
+  alias cargo=cross
+else
+  alias cargo=cargo
+fi
+
+cargo --version
+
 # we don't run the "test phase" when doing deploys
 if [ -z $TRAVIS_TAG ]; then
   main
