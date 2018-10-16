@@ -42,7 +42,7 @@ Hello, planet!
 [3]: https://img.shields.io/travis/danreeves/cargo-cmd.svg?style=flat-square
 [4]: https://travis-ci.org/danreeves/cargo-cmd
 [5]: https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square
-[6]: https://docs.rs/cargo-cmd
+[6]: https://docs.rs/crate/cargo-cmd
 [7]: https://img.shields.io/crates/l/cargo-cmd.svg?style=flat-square
 [8]: ./LICENSE
 
