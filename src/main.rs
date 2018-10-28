@@ -1,3 +1,8 @@
+#![forbid(unsafe_code, bad_style, future_incompatible)] 
+#![forbid(rust_2018_idioms, rust_2018_compatibility)] 
+#![forbid(missing_debug_implementations)] 
+#![forbid(missing_docs)]
+
 #[macro_use]
 extern crate serde_derive;
 extern crate subprocess;
