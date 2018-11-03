@@ -19,7 +19,7 @@ main() {
   fi
 
   $cargo fmt -- --check
-  $cargo +nightly clippy
+  $cargo clippy
 
   $cargo test --target $TARGET
   $cargo test --target $TARGET --release
