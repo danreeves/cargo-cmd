@@ -34,10 +34,6 @@ main() {
     cargo install cross --force
   fi
 
-  if [ $TRAVIS_OS_NAME = windows ]; then
-    choco install windows-sdk-10.0
-  fi
-
   # Install test dependencies
   rustup component add rustfmt-preview
   rustup component add clippy-preview

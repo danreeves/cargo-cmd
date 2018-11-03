@@ -9,8 +9,6 @@ Like `npm` scripts, but for `cargo`.
 
 ## Installation
 
-**Disclaimer**: Currently requires nightly
-
 ```sh
 cargo install cargo-cmd
 ```
