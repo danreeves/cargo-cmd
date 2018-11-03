@@ -12,6 +12,9 @@ main() {
     linux)
       stage=$(mktemp -d)
       ;;
+    windows)
+      stage=$(mktemp -d)
+      ;;
     osx)
       stage=$(mktemp -d -t tmp)
       ;;
@@ -19,7 +22,14 @@ main() {
 
   test -f Cargo.lock || cargo generate-lockfile
 
-  cross rustc --bin $PKG_NAME --target $TARGET --release -- -C lto
+  local cargo=
+  if [ $TRAVIS_OS_NAME = linux ]; then
+    cargo='cross'
+  else
+    cargo='cargo'
+  fi
+
+  $cargo rustc --bin $PKG_NAME --target $TARGET --release -- -C lto
   cp target/$TARGET/release/$PKG_NAME $stage/
 
   cd $stage
