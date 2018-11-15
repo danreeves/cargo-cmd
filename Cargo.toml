@@ -15,6 +15,9 @@ greet = "cargo cmd echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
 pass = "exit 0"
 fail = "exit 42"
+prechain = "echo 1"
+chain = "echo 2"
+postchain = "echo 3"
 
 [dependencies]
 toml = "0.4.8"

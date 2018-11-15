@@ -44,33 +44,32 @@ fn main() {
     let (command, rest) = match cli {
         Cli::Cmd { command, rest } => (command, rest),
     };
-    let cmds = exit_if_error(get_cmds(&command));
-    let shell_command = cmds.get(&command);
+    let commands = unwrap_or_exit(get_commands(&command));
+    let command = &commands[0].1;
 
-    if let Some(command) = shell_command {
-        // This is naughty but Exec::shell doesn't let us do it with .args because
-        // it ends up as an argument to sh/cmd.exe instead of our user command
-        // or escaping things weirdly.
-        let command = format!("{} {}", command, rest.join(" "));
-        println!("> {}", command);
-        let sh = Exec::shell(command);
-        let exit = sh.join().unwrap();
+    let exit = execute_command(command, rest);
 
-        if exit.success() {
-            process::exit(0);
-        } else {
-            match exit {
-                ExitStatus::Exited(exit_code) => process::exit(exit_code as i32),
-                _ => process::exit(1),
-            }
-        }
+    if exit.success() {
+        process::exit(0);
     } else {
-        eprintln!("Command \"{}\" not found in Cargo.toml", &command);
-        process::exit(1);
+        match exit {
+            ExitStatus::Exited(exit_code) => process::exit(exit_code as i32),
+            _ => process::exit(1),
+        }
     }
 }
 
-fn exit_if_error<T>(result: Result<T, String>) -> T {
+fn execute_command(command:&str, rest: Vec<String>) -> ExitStatus {
+    // This is naughty but Exec::shell doesn't let us do it with .args because
+    // it ends up as an argument to sh/cmd.exe instead of our user command
+    // or escaping things weirdly.
+    let command = format!("{} {}", command, rest.join(" "));
+    println!("> {}", command);
+    let sh = Exec::shell(command);
+    sh.join().unwrap_or(ExitStatus::Exited(0))
+}
+
+fn unwrap_or_exit<T>(result: Result<T, String>) -> T {
     match result {
         Err(error_msg) => {
             clap::Error::with_description(&error_msg[..], clap::ErrorKind::InvalidValue).exit();
@@ -79,11 +78,12 @@ fn exit_if_error<T>(result: Result<T, String>) -> T {
     }
 }
 
-fn get_cmds(command: &str) -> Result<HashMap<String, String>, String> {
+fn get_commands(command: &str) -> Result<Vec<(String, String)>, String> {
     let mut cargo_toml = File::open("Cargo.toml").or(Err(
         "Could not find or open Cargo.toml in the current directory",
     ))?;
     let mut cargo_str = String::new();
+    let mut commands = vec![];
 
     cargo_toml
         .read_to_string(&mut cargo_str)
@@ -92,13 +92,15 @@ fn get_cmds(command: &str) -> Result<HashMap<String, String>, String> {
     let cargo_toml: Cargotoml =
         toml::from_str(&cargo_str[..]).or(Err("Could not find commands in Cargo.toml"))?;
 
-    let commands = cargo_toml.package.metadata.commands;
+    let cargo_commands = cargo_toml.package.metadata.commands;
 
     {
-        let command_to_run = &commands.get(command);
+        let command_to_run = &cargo_commands.get(command);
         if command_to_run.is_none() {
             return Err(format!("Command \"{}\" not found in Cargo.toml", &command));
         }
+
+        commands.push((command.to_string(), command_to_run.unwrap().to_string()));
     }
 
     Ok(commands)
