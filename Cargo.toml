@@ -13,11 +13,19 @@ keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 echo = "echo"
 greet = "cargo cmd echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
+
 pass = "exit 0"
 fail = "exit 42"
+
 prechain = "echo 1"
 chain = "echo 2"
 postchain = "echo 3"
+
+prefailchain = "echo 1"
+failchain = "exit 42"
+
+prefailchain2 = "exit 42"
+failchain2 = "echo 2"
 
 [dependencies]
 toml = "0.4.8"

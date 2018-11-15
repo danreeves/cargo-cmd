@@ -45,21 +45,29 @@ fn main() {
         Cli::Cmd { command, rest } => (command, rest),
     };
     let commands = unwrap_or_exit(get_commands(&command));
-    let command = &commands[0].1;
+    let is_multiple_commands = commands.len() > 1;
 
-    let exit = execute_command(command, rest);
+    for (index, command) in commands.iter().enumerate() {
+        if is_multiple_commands {
+            println!("\n[{}]", &command.0);
+        }
+        let command = &command.1;
+        let exit = execute_command(command, &rest);
 
-    if exit.success() {
-        process::exit(0);
-    } else {
-        match exit {
-            ExitStatus::Exited(exit_code) => process::exit(exit_code as i32),
-            _ => process::exit(1),
+        if exit.success() {
+            if index == commands.len() {
+                process::exit(0);
+            }
+        } else {
+            match exit {
+                ExitStatus::Exited(exit_code) => process::exit(exit_code as i32),
+                _ => process::exit(1),
+            }
         }
     }
 }
 
-fn execute_command(command:&str, rest: Vec<String>) -> ExitStatus {
+fn execute_command(command: &str, rest: &Vec<String>) -> ExitStatus {
     // This is naughty but Exec::shell doesn't let us do it with .args because
     // it ends up as an argument to sh/cmd.exe instead of our user command
     // or escaping things weirdly.
@@ -84,6 +92,11 @@ fn get_commands(command: &str) -> Result<Vec<(String, String)>, String> {
     ))?;
     let mut cargo_str = String::new();
     let mut commands = vec![];
+    let names = vec![
+        format!("pre{}", command),
+        command.to_string(),
+        format!("post{}", command),
+    ];
 
     cargo_toml
         .read_to_string(&mut cargo_str)
@@ -94,13 +107,16 @@ fn get_commands(command: &str) -> Result<Vec<(String, String)>, String> {
 
     let cargo_commands = cargo_toml.package.metadata.commands;
 
-    {
-        let command_to_run = &cargo_commands.get(command);
-        if command_to_run.is_none() {
+    for name in names {
+        let command_to_run = &cargo_commands.get(&name);
+
+        if name == command && command_to_run.is_none() {
             return Err(format!("Command \"{}\" not found in Cargo.toml", &command));
         }
 
-        commands.push((command.to_string(), command_to_run.unwrap().to_string()));
+        if command_to_run.is_some() {
+            commands.push((name, command_to_run.unwrap().to_string()));
+        }
     }
 
     Ok(commands)
