@@ -1,4 +1,6 @@
 extern crate assert_cli;
+extern crate textwrap;
+use textwrap::dedent;
 
 #[test]
 fn it_shows_help_for_no_args() {
@@ -45,13 +47,44 @@ fn it_returns_the_exit_code_of_the_command_when_it_fails() {
 
 #[test]
 fn it_passes_extra_arguments_to_the_command() {
+    let expected_output = dedent(
+        "
+        > echo hello planet
+        hello planet
+        ",
+    );
+    let expected_output = expected_output.trim();
     assert_cli::Assert::main_binary()
         .with_args(&["cmd", "echo", "hello planet"])
         .succeeds()
         .and()
         .stdout()
-        // This is both the printout of the command being executed
-        // and the output itself
-        .contains("> echo hello planet\nhello planet")
+        .contains(expected_output)
+        .unwrap();
+}
+
+#[test]
+fn it_runs_pre_and_post_commands() {
+    let expected_output = dedent(
+        "
+        [prechain]
+        > echo 1
+        1
+
+        [chain]
+        > echo 2
+        2
+
+        [postchain]
+        > echo 3
+        3",
+    );
+    let expected_output = expected_output.as_str();
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains(expected_output)
         .unwrap();
 }
