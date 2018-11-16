@@ -21,11 +21,8 @@ prechain = "echo 1"
 chain = "echo 2"
 postchain = "echo 3"
 
-prefailchain = "echo 1"
-failchain = "exit 42"
-
-prefailchain2 = "exit 42"
-failchain2 = "echo 2"
+prefailchain = "exit 42"
+failchain = "echo 2"
 
 [dependencies]
 toml = "0.4.8"
@@ -36,7 +33,6 @@ structopt = "0.2.12"
 clap = "2.32.0"
 
 [dev-dependencies]
-textwrap = "0.10.0"
 assert_cli = "0.6.3"
 
 [target.'cfg(windows)'.dependencies]

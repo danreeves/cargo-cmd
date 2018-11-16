@@ -1,6 +1,4 @@
 extern crate assert_cli;
-extern crate textwrap;
-use textwrap::dedent;
 
 #[test]
 fn it_shows_help_for_no_args() {
@@ -47,44 +45,55 @@ fn it_returns_the_exit_code_of_the_command_when_it_fails() {
 
 #[test]
 fn it_passes_extra_arguments_to_the_command() {
-    let expected_output = dedent(
-        "
-        > echo hello planet
-        hello planet
-        ",
-    );
-    let expected_output = expected_output.trim();
     assert_cli::Assert::main_binary()
         .with_args(&["cmd", "echo", "hello planet"])
         .succeeds()
         .and()
         .stdout()
-        .contains(expected_output)
+        .contains("> echo hello planet")
         .unwrap();
 }
 
 #[test]
-fn it_runs_pre_and_post_commands() {
-    let expected_output = dedent(
-        "
-        [prechain]
-        > echo 1
-        1
-
-        [chain]
-        > echo 2
-        2
-
-        [postchain]
-        > echo 3
-        3",
-    );
-    let expected_output = expected_output.as_str();
+fn it_runs_the_pre_command() {
     assert_cli::Assert::main_binary()
         .with_args(&["cmd", "chain"])
         .succeeds()
         .and()
         .stdout()
-        .contains(expected_output)
+        .contains("[prechain]")
+        .unwrap();
+}
+
+#[test]
+fn it_runs_the_post_command() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains("[postchain]")
+        .unwrap();
+}
+
+#[test]
+fn it_labels_the_command_if_running_multiple() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains("[chain]")
+        .unwrap();
+}
+
+#[test]
+fn it_stops_the_chain_if_a_command_fails() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "failchain"])
+        .fails()
+        .and()
+        .stdout()
+        .doesnt_contain("[chain]")
         .unwrap();
 }
