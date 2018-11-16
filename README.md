@@ -47,7 +47,7 @@ $ cargo cmd echo 'Hello, planet!'
 Hello, planet!
 ```
 
-### Pre and Post commands
+#### Pre and Post commands
 
 You are able to set up commands to run before and after your command by prefixing the name with `pre` or `post` respectively.
 
