@@ -60,3 +60,27 @@
  tests/test.rs      |  57 ++++++++++++++++++++-
  8 files changed, 262 insertions(+), 25 deletions(-)
 ```
+## 2018-11-16, Version 0.3.0
+### Commits
+- [[`c69fdd1c68`](https://github.com/danreeves/cargo-cmd/commit/c69fdd1c68573f26d71349d845c4af94e30dfb6c)] bump version (Dan Reeves)
+- [[`e5f6a8ddfe`](https://github.com/danreeves/cargo-cmd/commit/e5f6a8ddfecb73a338807eaec8107db8f4282909)] Pre- & Post- commands (#14) (Dan Reeves)
+- [[`52f4b24378`](https://github.com/danreeves/cargo-cmd/commit/52f4b24378d856d85f34fece008583327ea12003)] Windows releases (#9) (Dan Reeves)
+- [[`40a032a13e`](https://github.com/danreeves/cargo-cmd/commit/40a032a13ebbffa54de4061713f5a8da99d0537e)] nightly → stable (#12) (Dan Reeves)
+- [[`03132c1352`](https://github.com/danreeves/cargo-cmd/commit/03132c1352861cc30398ecb74bb46b1f56e0dde6)] fix docs.rs link (#10) (Dan Reeves)
+- [[`50b49f162c`](https://github.com/danreeves/cargo-cmd/commit/50b49f162c49c6263c08798a5197ab835ffa7507)] update lockfile (Dan Reeves)
+- [[`22706b59cd`](https://github.com/danreeves/cargo-cmd/commit/22706b59cda965507af684aa7ebe1a295a29520b)] upadte changelog (Dan Reeves)
+
+### Stats
+```diff
+ .travis.yml              | 10 ++++----
+ CHANGELOG.md             | 21 +++++++++++++++++-
+ Cargo.lock               | 17 +++++++-------
+ Cargo.toml               | 18 +++++++++++++--
+ README.md                | 50 +++++++++++++++++++++++++++++++++++++----
+ scripts/before_deploy.sh | 12 +++++++++-
+ scripts/install.sh       |  4 +---
+ scripts/script.sh        |  2 +-
+ src/main.rs              | 60 +++++++++++++++++++++++++++++++------------------
+ tests/test.rs            | 52 +++++++++++++++++++++++++++++++++++++-----
+ 10 files changed, 195 insertions(+), 51 deletions(-)
+```
