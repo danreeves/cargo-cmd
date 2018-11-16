@@ -13,11 +13,11 @@ fn it_shows_help_for_no_args() {
 #[test]
 fn it_errors_if_cmd_not_found() {
     assert_cli::Assert::main_binary()
-        .with_args(&["cmd", "test"])
+        .with_args(&["cmd", "notfound"])
         .fails()
         .and()
         .stderr()
-        .contains("Command \"test\" not found in Cargo.toml")
+        .contains("Command \"notfound\" not found in Cargo.toml")
         .unwrap();
 }
 

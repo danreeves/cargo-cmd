@@ -24,6 +24,10 @@ postchain = "echo 3"
 prefailchain = "exit 42"
 failchain = "echo 2"
 
+pretest = "echo pre"
+test = "cargo test"
+posttest = "echo post"
+
 [dependencies]
 toml = "0.4.8"
 serde_derive = "1.0.79"
