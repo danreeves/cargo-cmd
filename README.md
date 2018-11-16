@@ -5,7 +5,7 @@
 [![docs.rs docs][5]][6]
 [![license][7]][8]
 
-Like `npm` scripts, but for `cargo`.
+Alias any shell command in your `Cargo.toml`. It's like `npm` scripts, but for `cargo`.
 
 ## Installation
 
