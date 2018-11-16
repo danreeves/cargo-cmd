@@ -1,6 +1,6 @@
 [package]
 name = "cargo-cmd"
-description = "Like npm scripts, but for cargo"
+description = "Alias any shell command in your Cargo.toml. It's like npm scripts, but for cargo."
 version = "0.2.1"
 authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
@@ -13,8 +13,20 @@ keywords = ["cargo", "cmd", "scripts", "commands", "npm"]
 echo = "echo"
 greet = "cargo cmd echo 'Hello, planet!'"
 dev = "cargo watch -s 'clear; cargo build && cargo cmd greet'"
+
 pass = "exit 0"
 fail = "exit 42"
+
+prechain = "echo 1"
+chain = "echo 2"
+postchain = "echo 3"
+
+prefailchain = "exit 42"
+failchain = "echo 2"
+
+pretest = "echo pre"
+test = "cargo test"
+posttest = "echo post"
 
 [dependencies]
 toml = "0.4.8"
@@ -23,6 +35,8 @@ serde = "1.0.79"
 subprocess = "0.1.16"
 structopt = "0.2.12"
 clap = "2.32.0"
+
+[dev-dependencies]
 assert_cli = "0.6.3"
 
 [target.'cfg(windows)'.dependencies]

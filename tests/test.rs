@@ -13,11 +13,11 @@ fn it_shows_help_for_no_args() {
 #[test]
 fn it_errors_if_cmd_not_found() {
     assert_cli::Assert::main_binary()
-        .with_args(&["cmd", "test"])
+        .with_args(&["cmd", "notfound"])
         .fails()
         .and()
         .stderr()
-        .contains("Command \"test\" not found in Cargo.toml")
+        .contains("Command \"notfound\" not found in Cargo.toml")
         .unwrap();
 }
 
@@ -50,8 +50,50 @@ fn it_passes_extra_arguments_to_the_command() {
         .succeeds()
         .and()
         .stdout()
-        // This is both the printout of the command being executed
-        // and the output itself
-        .contains("> echo hello planet\nhello planet")
+        .contains("> echo hello planet")
+        .unwrap();
+}
+
+#[test]
+fn it_runs_the_pre_command() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains("[prechain]")
+        .unwrap();
+}
+
+#[test]
+fn it_runs_the_post_command() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains("[postchain]")
+        .unwrap();
+}
+
+#[test]
+fn it_labels_the_command_if_running_multiple() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "chain"])
+        .succeeds()
+        .and()
+        .stdout()
+        .contains("[chain]")
+        .unwrap();
+}
+
+#[test]
+fn it_stops_the_chain_if_a_command_fails() {
+    assert_cli::Assert::main_binary()
+        .with_args(&["cmd", "failchain"])
+        .fails()
+        .and()
+        .stdout()
+        .doesnt_contain("[chain]")
         .unwrap();
 }

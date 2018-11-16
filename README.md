@@ -5,7 +5,7 @@
 [![docs.rs docs][5]][6]
 [![license][7]][8]
 
-Like `npm` scripts, but for `cargo`.
+Alias any shell command in your `Cargo.toml`. It's like `npm` scripts, but for `cargo`.
 
 ## Installation
 
@@ -28,6 +28,50 @@ Now you can run `cargo cmd greet`:
 $ cargo cmd greet
 > echo 'Hello, planet!'
 Hello, planet!
+```
+
+### Advanced use
+
+#### Passing arguments
+
+It's possible to pass arguments into your command by passing them directly to `cargo cmd`.
+
+```toml
+[package.metadata.commands]
+echo = "echo"
+```
+
+```sh
+$ cargo cmd echo 'Hello, planet!'
+> echo 'Hello, planet!'
+Hello, planet!
+```
+
+#### Pre and Post commands
+
+You are able to set up commands to run before and after your command by prefixing the name with `pre` or `post` respectively.
+
+```toml
+[package.metadata.commands]
+pretest = "./setup.sh"
+test = "cargo test"
+posttest = "./teardown.sh"
+```
+
+```sh
+$ cargo cmd test
+
+[pretest]
+> ./setup.sh
+Setting up DB...
+
+[test]
+> cargo test
+...
+
+[posttest]
+> ./teardown.sh
+Tearing down DB...
 ```
 
 ## License
