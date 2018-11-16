@@ -1,7 +1,7 @@
 [package]
 name = "cargo-cmd"
 description = "Alias any shell command in your Cargo.toml. It's like npm scripts, but for cargo."
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Dan Reeves <hey@danreev.es>"]
 repository = "https://github.com/danreeves/cargo-cmd"
 license = "MIT"
