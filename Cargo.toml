@@ -29,18 +29,17 @@ test = "cargo test"
 posttest = "echo post"
 
 [dependencies]
-toml = "0.4.8"
-serde_derive = "1.0.79"
-serde = "1.0.79"
-subprocess = "0.1.16"
-structopt = "0.2.12"
-clap = "2.32.0"
+toml = "0.5.0"
+serde = { version = "1.0.104", features = ["derive"] }
+subprocess = "0.2.4"
+structopt = "0.3.11"
+clap = "2.33.0"
 
 [dev-dependencies]
 assert_cli = "0.6.3"
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3.6", features = ["handleapi", "namedpipeapi", "processenv", "synchapi", "winerror"] }
+winapi = { version = "0.3.8", features = ["handleapi", "namedpipeapi", "processenv", "synchapi", "winerror"] }
 
 [badges]
 travis-ci = { repository = "danreeves/cargo-cmd", branch = "master" }

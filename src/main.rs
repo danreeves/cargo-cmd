@@ -1,5 +1,5 @@
 #[macro_use]
-extern crate serde_derive;
+extern crate serde;
 extern crate clap;
 extern crate structopt;
 extern crate subprocess;
