@@ -14,13 +14,13 @@ matrix:
       rust: stable
     - env: TARGET=x86_64-unknown-linux-musl
       rust: stable
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: stable
     - env: TARGET=x86_64-apple-darwin
-      rust: stable
       os: osx
-    - env: TARGET=stable-x86_64-unknown-linux-gnu
       rust: stable
-    - os: windows
-      env: TARGET=x86_64-pc-windows-gnu
+    - env: TARGET=x86_64-pc-windows-gnu
+      os: windows
       rust: stable
 
 before_install:
