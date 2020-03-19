@@ -10,17 +10,17 @@ env:
 
 matrix:
   include:
-    - env: TARGET=armv7-unknown-linux-gnueabihf DISABLE_TESTS=1
+    - env: TARGET=armv7-unknown-linux-gnueabihf
       rust: stable
-    - env: TARGET=x86_64-unknown-linux-musl DISABLE_TESTS=1
+    - env: TARGET=x86_64-unknown-linux-musl
+      rust: stable
+    - env: TARGET=x86_64-unknown-linux-gnu
       rust: stable
     - env: TARGET=x86_64-apple-darwin
-      rust: stable
       os: osx
-    - env: TARGET=x86_64-unknown-freebsd DISABLE_TESTS=1
       rust: stable
-    - os: windows
-      env: TARGET=x86_64-pc-windows-msvc
+    - env: TARGET=x86_64-pc-windows-gnu
+      os: windows
       rust: stable
 
 before_install:
